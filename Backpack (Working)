@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Backpack1
+{
+    class Program
+    {
+       
+            private static List<List<int>> combinations = new List<List<int>>();
+        static void Main(string[] args)
+        {
+            Console.Write("Objects count: ");
+            int num = int.Parse(Console.ReadLine());
+            Console.Write("Objects weight: ");
+            int[] m = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            Console.Write("Objects value: ");
+            int[] c = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            Console.Write("Backpack max weight: ");
+            int maxWeight = int.Parse(Console.ReadLine());
+            int maxValue = 0;
+            int currentValue = 0;
+            int currentIndex = 0;
+            int index = 0;
+
+            for (int i = 1; i <= num; i++)
+            {
+                int[] arr = new int[i];
+                GenCombs(arr, 0, 1, num);
+            }
+
+            foreach (var item in combinations)
+            {
+                Console.WriteLine("(" + string.Join(", ", item) + ")");
+            }
+
+            foreach (var list in combinations)
+            {
+                int weight = list.Sum(x => m[x - 1]);
+
+                if (weight <= maxWeight)
+                {
+                    currentValue = list.Sum(x => c[x - 1]);
+
+                    if (currentValue > maxValue)
+                    {
+                        maxValue = currentValue;
+                        index = currentIndex;
+                    }
+                }
+                currentIndex++;
+            }
+
+            Console.WriteLine(maxValue);
+            Console.WriteLine(string.Join(", ", combinations[index]));
+        }
+
+        private static void GenCombs(int[] arr, int index, int startNum, int endNum)
+        {
+            if (index >= arr.Length)
+            {
+                combinations.Add(arr.ToList());
+            }
+            else
+            {
+                for (int i = startNum; i <= endNum; i++)
+                {
+                    arr[index] = i;
+                    GenCombs(arr, index + 1, i + 1, endNum);
+                }
+            }
+        }
+    }
+    
+}
