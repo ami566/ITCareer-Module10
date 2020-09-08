@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+
+namespace EgyptianFraction
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("p = ");
+            int p = int.Parse(Console.ReadLine());
+            Console.Write("q = ");
+            int q = int.Parse(Console.ReadLine());
+            int r = 1;
+
+            Queue<int> denominators = new Queue<int>();
+
+            while (p > 1)
+            {
+                r = (p + q) / p;
+
+                denominators.Enqueue(r);
+               
+                p = p * r - q;
+                q = q * r;
+
+                int nod = NOD(p,q);
+                p = p / nod;
+                q = q / nod;
+
+            }
+          
+            foreach (var item in denominators)
+            {
+                Console.Write($"1/{item} + ");
+            }
+            Console.Write($"1/{q}\n");
+        }
+
+        public static int NOD(int p, int q)
+        {
+            while (p!=q)
+            {
+                if (p>q)
+                {
+                    p -= q;
+                }
+                else
+                {
+                    q -= p;
+                }
+            }
+           
+            return p;
+        }
+    }
+}
