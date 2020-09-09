@@ -1,0 +1,99 @@
+using System;
+
+namespace Walker
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            int[,] v = new int[n, n];
+            int[,] a = new int[n-1, n];
+            int[,] b = new int[n, n-1];
+            int[,] w = new int[n, n];
+
+            for (int i = 0; i < n-1; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write($"a[{i},{j}]=");
+                    a[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n-1; j++)
+                {
+                    Console.Write($"b[{i},{j}]=");
+                    b[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+
+            v[0, 0] = 0;
+            w[0, 0] = -1;
+
+            for (int i = 1; i <n; i++)
+            {
+                v[i, 0] = v[i - 1, 0] + a[i - 1, 0];
+                w[i, 0] = 1;
+            }
+
+            for (int j = 1; j < n; j++)
+            {
+                v[0, j] = v[0, j-1] + b[0, j-1];
+                w[0, j] = 0;
+            }
+
+            for (int i = 1; i < n; i++)
+            {
+                for (int j = 1; j < n; j++)
+                {
+                    if (v[i, j-1]+b[i, j-1]<=v[i-1, j]+a[i-1, j])
+                    {
+                        v[i, j] = v[i, j - 1] + b[i, j - 1];
+                        w[i, j] = 0;
+                    }
+                    else
+                    {
+                        v[i, j] = v[i - 1, j] + a[i - 1, j];
+                        w[i, j] = 1;
+                    }
+                }
+            }
+            Console.WriteLine(v[n-1, n-1]);
+
+            for (int i = n-1; i > 0; i--)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(w[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            PrintPath(n - 1, n - 1, w);
+        }
+
+        static void PrintPath(int m, int n, int[,] w)
+        {
+            if (w[m,n] ==-1)
+            {
+                return;
+            }
+            else
+            {
+                if (w[m,n]==1)
+                {
+                    Console.WriteLine("V");
+                    PrintPath(m - 1, n, w);
+                }
+                else
+                {
+                    Console.WriteLine("<");
+                    PrintPath(m, n-1, w);
+                }
+            }
+        }
+    }
+}
