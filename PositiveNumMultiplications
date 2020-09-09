@@ -1,0 +1,29 @@
+using System;
+using System.Linq;
+
+namespace PositiveNumMultiplications
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = new int[2];
+            do
+            {
+                numbers = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            } while (numbers[0]<1 || numbers[1]<1);
+           
+            int result = mult(numbers[0], numbers[1]);
+            Console.WriteLine(result);
+        }
+
+        public static int mult(int m, int n)
+        {
+            if (n==1)
+            {
+                return m;
+            }
+            return mult(m, n - 1) + m;
+        }
+    }
+}
