@@ -1,0 +1,33 @@
+using System;
+
+namespace FoodCoupons
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int wDays = 0;
+            do
+            {
+              wDays = int.Parse(Console.ReadLine());
+            } while ((wDays<1) || (wDays>23));
+            
+         
+            int coupons = 0;
+            int bonusSum = wDays * 20;
+
+            while (bonusSum>=100)
+            {
+                coupons += 1;
+                bonusSum -= 100;
+            }
+
+            if (bonusSum>0)
+            {
+                coupons += bonusSum / 20;
+            }
+
+            Console.WriteLine(coupons);
+        }
+    }
+}
