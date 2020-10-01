@@ -1,0 +1,29 @@
+using System;
+
+namespace Combinations
+{
+    class Program
+    {
+        static void GenCombs(int[] set, int[] vector, int index, int border)
+        {
+            if (index==vector.Length)
+            {
+                Console.WriteLine(string.Join(",", vector));
+            }
+            else
+            {
+                for (int i = border; i < set.Length; i++)
+                {
+                    vector[index] = set[i];
+                    GenCombs(set, vector, index + 1, i + 1);
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            int[] vector = new int[2];
+            int[] set = new int[] { 1, 2, 3, 4, 5, 6, 7, 8};
+            GenCombs(set, vector, 0, 0);
+        }
+    }
+}
