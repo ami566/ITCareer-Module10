@@ -1,0 +1,60 @@
+using System;
+
+namespace ExamModule10
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int N = int.Parse(Console.ReadLine());
+
+            int banknotes = 0;
+            
+
+            while (N>=100)
+            {
+                banknotes += 1;
+                N -= 100;
+            }
+
+            while (N >= 50)
+            {
+                banknotes += 1;
+                N -= 50;
+            }
+
+            while (N >= 20)
+            {
+                banknotes += 1;
+                N -= 20;
+            }
+
+            while (N >= 10)
+            {
+                banknotes += 1;
+                N -= 10;
+            }
+
+            while (N >= 5)
+            {
+                banknotes += 1;
+                N -= 5;
+            }
+
+            while (N >= 2)
+            {
+                banknotes += 1;
+                N -= 2;
+            }
+
+            if (N>0)
+            {
+                banknotes += 1;
+            }
+
+            Console.WriteLine(banknotes);
+            
+        }
+    }
+}
