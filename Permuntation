@@ -1,0 +1,44 @@
+using System;
+using System.Linq;
+
+namespace Problem2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = 0;
+            do
+            {
+                n = int.Parse(Console.ReadLine());
+            } while (n<1 || n>20);
+           
+
+            int[] elements = new int[n];
+            bool[] used = new bool[n];
+            int[] perm = new int[n];
+            for (int i = 1; i <= n; i++)
+            {
+                elements[i - 1] = i;
+            }
+
+            Permute(0, elements, used, perm);
+        }
+
+        public static void Permute(int index, int[] elements, bool[] used, int[] perm)
+        {
+            if (index >= elements.Length)
+                Console.WriteLine(string.Join(" ", perm));
+            else
+                for (int i = 0; i < elements.Length; i++)
+                    if (!used[i])
+                    {
+                        used[i] = true;
+                        perm[index] = elements[i];
+                        Permute(index + 1, elements, used, perm);
+                        used[i] = false;
+                    }
+        }
+
+    }
+}
